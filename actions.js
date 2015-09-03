@@ -1,5 +1,5 @@
-var Dispatcher = require("dispatcher");
-var Constants = require("constants");
+var Dispatcher = require("./dispatcher");
+var Constants = require("./constants");
 
 var actions = {
 	createUser: function(user){

@@ -1,11 +1,11 @@
-var Dispatcher = require("dispatcher");
-var Constants = require("constants");
+var Dispatcher = require("./dispatcher");
+var Constants = require("./constants");
 var EventEmitter = require("events").EventEmitter;
 var objectAssign = require("object-assign");
 var _ = require('lodash');
 var CHANGE_EVENT = "change";
 
-var _users = [];
+var _users = ['bob','steve','jim'];
 
 var store = objectAssign({}, EventEmitter.prototype, {
 	addChangeListener: function(callback){
