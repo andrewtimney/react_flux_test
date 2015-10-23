@@ -7,12 +7,12 @@ var reactify = require('reactify');
 gulp.task("default", function () {
   return gulp.src("./components/main.jsx")
     .pipe(babel())
-    .pipe(gulp.dest("./"));
+    .pipe(gulp.dest("./public/build"));
 });
 
 gulp.task("browserify", ['default'], function () {
   return browserify("main.js")
     .bundle()
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest("./"));
+    .pipe(gulp.dest("./public/build"));
 });
