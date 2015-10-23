@@ -1,12 +1,8 @@
 var React = require("react");
-var Actions = require("./actions");
-var Store = require("./store");
+var Actions = require("../../actions/actions");
+var Store = require("../../stores/store");
 //var users = [];
-
-
-
 // Need to initialize actions, get initial data and send to dispatcher on app start 
-
 //users = Store.getAllUsers();
 
 var Comment = React.createClass({
@@ -34,12 +30,11 @@ var Comments = React.createClass({
 		this.setState({ users: Store.getAllUsers() });
 	},
 	render: function(){
-		var comments = this.state.users.map(function(comment){
-					return <div>{comment}</div>;
-				});
 		return <div>
 			<h2>Comments</h2>
-				{comments}
+				{this.state.users.map(function(comment){
+					return <div>{comment}</div>;
+				})}
 			<div>
 				<form onSubmit={this.save}>
 				<input type="text" name="user" ref="user" />
@@ -49,8 +44,6 @@ var Comments = React.createClass({
 		</div>;
 	}
 });
-
-
 
  React.render(
 	<Comments />,

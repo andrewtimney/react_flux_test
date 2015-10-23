@@ -11,7 +11,7 @@ gulp.task("default", function () {
 });
 
 gulp.task("browserify", ['default'], function () {
-  return browserify("main.js")
+  return browserify("./public/build/main.js")
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest("./public/build"));
