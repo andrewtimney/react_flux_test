@@ -41,9 +41,6 @@ var Todo = React.createClass({
 		
 	},
 	render: function(){
-	/*//<span onClick={this.handleEdit}>
-					{this.props.todo}
-				</span>*/
 		return <li className="list-group-item" key={this.props.key}>
 				<EditableTodo todo={this.props.todo} />
 				<button className="btn btn-sm btn-default pull-right"
