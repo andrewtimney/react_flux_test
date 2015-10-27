@@ -2,10 +2,10 @@ var React = require("react");
 var ReactDom = require('react-dom');
 var Actions = require("../../actions/actions");
 var TodoStore = require("../../stores/todo-store");
-var PureRenderMixin = require('react-addons-pure-render-mixin');
+//var PureRenderMixin = require('react-addons-pure-render-mixin');
 
 var EditableTodo = React.createClass({
-	mixins: [PureRenderMixin],
+	//mixins: [PureRenderMixin],
 	getInitialState(){
 		return { IsEditing: false };
 	},
@@ -16,9 +16,12 @@ var EditableTodo = React.createClass({
 		e.preventDefault();
 		var text = this.refs.text.value.trim();
 		if(text){
-			Actions.editTodo({ id: this.props.todo.id, todo: text });
+			Actions.editTodo({ id: this.props.todo.id, todo: text, done:false });
 			this.setState({ IsEditing: false });
 		}
+	},
+	toggleStatus(){
+		Actions.editTodo({ id: this.props.todo.id, todo: this.props.todo.todo, done:!this.props.todo.done });
 	},
 	render: function(){
 		console.log(`Render todo id:${this.props.todo.id} ${this.props.todo.todo}`);
@@ -30,9 +33,14 @@ var EditableTodo = React.createClass({
 				</form>
 			</span>;
 		}else{
-			return <span onClick={this.handleClick}>
-				{this.props.todo.todo}
-			</span>;
+			var style = { opacity: this.props.todo.done ? 0.5 : 1 };
+			return <span style={style}> 
+					<span className="glyphicon glyphicon-ok" 
+						onClick={this.toggleStatus}></span>&nbsp;
+					<span onClick={this.handleClick}>
+						{this.props.todo.todo}
+					</span>
+				</span>;
 		}
 	}
 });
@@ -96,6 +104,7 @@ var Todos = React.createClass({
 		this.setState({ todos: TodoStore.getAllTodos() });
 	},
 	render: function(){
+		console.log('Todos render');
 		return <div>	
 			   <h3>Todo</h3>
 			   <ul className="list-group">

@@ -5,7 +5,7 @@ var objectAssign = require("object-assign");
 var _ = require('lodash');
 var CHANGE_EVENT = "change";
 
-var _todos = [{id:1, todo:'Pick up shopping'}];
+var _todos = [{id:1, todo:'Pick up shopping', done: false}];
 
 var store = objectAssign({}, EventEmitter.prototype, {
 	addChangeListener: function(callback){
@@ -29,10 +29,15 @@ var store = objectAssign({}, EventEmitter.prototype, {
 Dispatcher.register(function(action){
 	switch(action.actionType){
 		case Constants.CREATE_TODO:
-			var newId = _.max(_todos, function(todo){
-				return todo.id;
-			});
-			_todos.push({todo:action.data, id: newId ? newId.id+1 : 1});
+			var newId = 1;
+			if(_todos.length){
+				var todoMaxId = _.max(_todos, function(todo){
+					return todo.id;
+				});
+				newId = todoMaxId.id+1;
+			}
+			console.log('newid', newId);
+			_todos.push({todo:action.data, id: newId, done: false});
 			store.emitChange();
 			break;
 		case Constants.DELETE_TODO:
@@ -43,6 +48,7 @@ Dispatcher.register(function(action){
 		case Constants.EDIT_TODO:
 			var todo = _.find(_todos, { id: action.data.id })
 			todo.todo = action.data.todo;
+			todo.done = action.data.done;
 			store.emitChange();
 			break;
 	}
