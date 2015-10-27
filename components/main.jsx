@@ -1,8 +1,11 @@
 var React = require("react");
+var ReactDom = require('react-dom');
 var Actions = require("../../actions/actions");
 var TodoStore = require("../../stores/todo-store");
+var PureRenderMixin = require('react-addons-pure-render-mixin');
 
 var EditableTodo = React.createClass({
+	mixins: [PureRenderMixin],
 	getInitialState(){
 		return { IsEditing: false };
 	},
@@ -11,13 +14,14 @@ var EditableTodo = React.createClass({
 	},
 	save(e){
 		e.preventDefault();
-		var text = React.findDOMNode(this.refs.text).value.trim();
+		var text = ReactDom.findDOMNode(this.refs.text).value.trim();
 		if(text){
 			Actions.editTodo({ id: this.props.todo.id, todo: text });
 			this.setState({ IsEditing: false });
 		}
 	},
 	render: function(){
+		console.log(`Render todo id:${this.props.todo.id} ${this.props.todo.todo}`);
 		if(this.state.IsEditing){
 			return <span>
 				<form onSubmit={this.save}>
@@ -57,7 +61,7 @@ var Create = React.createClass({
 	},
 	save(e){
 		e.preventDefault();
-		var todo = React.findDOMNode(this.refs.todo).value.trim();
+		var todo = ReactDom.findDOMNode(this.refs.todo).value.trim();
 		if(todo){
 			Actions.createTodo(todo);
 			this.setState({ todo: '' });
@@ -107,7 +111,7 @@ var Todos = React.createClass({
 	}
 });
 
- React.render(
+ReactDom.render(
 	<Todos />,
 	document.getElementById('main')
 );

@@ -1,5 +1,5 @@
 //Action types
-var keyMirror = require("react/lib/keyMirror");
+var keyMirror = require("keymirror");
 
 module.exports = keyMirror({
 	CREATE_TODO:null,
