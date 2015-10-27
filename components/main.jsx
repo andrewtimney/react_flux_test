@@ -14,7 +14,7 @@ var EditableTodo = React.createClass({
 	},
 	save(e){
 		e.preventDefault();
-		var text = ReactDom.findDOMNode(this.refs.text).value.trim();
+		var text = this.refs.text.value.trim();
 		if(text){
 			Actions.editTodo({ id: this.props.todo.id, todo: text });
 			this.setState({ IsEditing: false });
@@ -41,16 +41,13 @@ var Todo = React.createClass({
 	handleDelete(){
 		Actions.deleteTodo(this.props.todo);
 	},
-	handleEdit(){
-		
-	},
 	render: function(){
 		return <li className="list-group-item" key={this.props.key}>
-				<EditableTodo todo={this.props.todo} />
-				<button className="btn btn-sm btn-default pull-right"
+				 <EditableTodo todo={this.props.todo} />
+				  <button className="btn btn-sm btn-default pull-right"
 					onClick={this.handleDelete}>
 					X
-				</button>
+				  </button>
 			   </li>;
 	}
 });
@@ -61,7 +58,7 @@ var Create = React.createClass({
 	},
 	save(e){
 		e.preventDefault();
-		var todo = ReactDom.findDOMNode(this.refs.todo).value.trim();
+		var todo = this.refs.todo.value.trim();
 		if(todo){
 			Actions.createTodo(todo);
 			this.setState({ todo: '' });
