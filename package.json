@@ -8,7 +8,11 @@
     "prestart": "gulp browserify",
     "start": "http-server -o"
   },
-  "author": "",
+  "repository": {
++    "type": "git",
++    "url": "https://github.com/andrewtimney/react_flux_test.git"
++  },
+  "author": "Andy Timney",
   "license": "ISC",
   "dependencies": {
     "browserify": "^11.0.1",
