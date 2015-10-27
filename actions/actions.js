@@ -13,6 +13,12 @@ var actions = {
 			actionType: Constants.DELETE_TODO,
 			data: todo
 		});
+	},
+	editTodo: function(todo){
+		Dispatcher.dispatch({
+			actionType: Constants.EDIT_TODO,
+			data: todo
+		});
 	}
 };
 
