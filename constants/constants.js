@@ -2,5 +2,5 @@
 var keyMirror = require("react/lib/keyMirror");
 
 module.exports = keyMirror({
-	CREATE_USER:null
+	CREATE_TODO:null
 });

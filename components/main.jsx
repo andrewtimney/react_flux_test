@@ -1,51 +1,72 @@
 var React = require("react");
 var Actions = require("../../actions/actions");
-var Store = require("../../stores/store");
-//var users = [];
-// Need to initialize actions, get initial data and send to dispatcher on app start 
-//users = Store.getAllUsers();
+var TodoStore = require("../../stores/todo-store");
 
-var Comment = React.createClass({
+var Todo = React.createClass({
 	render: function(){
-		return <div><h3>{this.props.comment}</h3></div>
+		return <div>
+				<h3>
+				{this.props.comment}
+				</h3>
+			   </div>
 	}
 });
 
-var Comments = React.createClass({
-	getInitialState: function(){
-		return {user:'Username', users: Store.getAllUsers()};
+var Create = React.createClass({
+	getInitialState(){
+		return { todo: '' };
 	},
-	save: function(e){
+	save(e){
 		e.preventDefault();
-		var user = React.findDOMNode(this.refs.user).value.trim();
- 		Actions.createUser(user);
+		var todo = React.findDOMNode(this.refs.todo).value.trim();
+		Actions.createTodo(todo);
+		this.setState({ todo: '' });
+	},
+	handleChange: function(event) {
+    	this.setState({todo: event.target.value});
+  	},
+	render: function(){
+		return <form onSubmit={this.save}>
+				  <div class="form-group">
+				  	<div className="input-group">
+					<input type="text" name="todo" ref="todo" value={this.state.todo}
+					  onChange={this.handleChange} className="form-control" placeholder="Add a Todo" />
+					  <span className="input-group-btn">
+					  	<input type="submit" value="Add" className="btn btn-default" />
+					  </span>
+					</div>
+				  </div>
+			   </form>;
+	}
+});
+
+var Todos = React.createClass({
+	getInitialState: function(){
+		return {todos: TodoStore.getAllTodos()};
 	},
 	componentWillMount: function(){
-		Store.addChangeListener(this._onChange);
+		TodoStore.addChangeListener(this._onChange);
 	},
 	componentWillUnmount: function(){
-		Store.removeChangeListener(this._onChange);
+		TodoStore.removeChangeListener(this._onChange);
 	},
 	_onChange: function(){
-		this.setState({ users: Store.getAllUsers() });
+		this.setState({ todos: TodoStore.getAllTodos() });
 	},
 	render: function(){
-		return <div>
-			<h2>Comments</h2>
-				{this.state.users.map(function(comment){
-					return <div>{comment}</div>;
-				})}
-			<div>
-				<form onSubmit={this.save}>
-				<input type="text" name="user" ref="user" />
-				<input type="submit" value="Save" />
-				</form>
-			</div>
-		</div>;
+		return <div>	
+			   <h3>Todo</h3>
+			   <ul className="list-group">
+			    {this.state.todos.map(function(todo){
+			   		return <li className="list-group-item">{todo}</li>;
+			    })}
+			   </ul>
+			   <Create />
+			   </div>;
 	}
 });
 
  React.render(
-	<Comments />,
+	<Todos />,
 	document.getElementById('main')
 );

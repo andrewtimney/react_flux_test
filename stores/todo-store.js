@@ -5,7 +5,7 @@ var objectAssign = require("object-assign");
 var _ = require('lodash');
 var CHANGE_EVENT = "change";
 
-var _users = ['bob','steve','jim'];
+var _todos = ['Go Home'];
 
 var store = objectAssign({}, EventEmitter.prototype, {
 	addChangeListener: function(callback){
@@ -17,18 +17,18 @@ var store = objectAssign({}, EventEmitter.prototype, {
 	emitChange: function(){
 		this.emit(CHANGE_EVENT);
 	},
-	getAllUsers: function(){
-		return _users;
+	getAllTodos: function(){
+		return _todos;
 	},
-	getAuthorById: function(id){
-		return _.find(_users, {id: id});
+	getTodosById: function(id){
+		return _.find(_todos, {id: id});
 	}
 });
 
 Dispatcher.register(function(action){
 	switch(action.actionType){
-		case Constants.CREATE_USER:
-			_users.push(action.data);
+		case Constants.CREATE_TODO:
+			_todos.push(action.data);
 			store.emitChange();
 			break;
 	}

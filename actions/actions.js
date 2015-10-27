@@ -2,11 +2,11 @@ var Dispatcher = require("../dispatcher/dispatcher");
 var Constants = require("../constants/constants");
 
 var actions = {
-	createUser: function(user){
-		console.log('user created', user);
+	createTodo: function(todo){
+		console.log('todo created', todo);
 		Dispatcher.dispatch({
-			actionType: Constants.CREATE_USER,
-			data: user
+			actionType: Constants.CREATE_TODO,
+			data: todo
 		});
 	}
 };
