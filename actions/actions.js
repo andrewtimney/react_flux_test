@@ -3,9 +3,14 @@ var Constants = require("../constants/constants");
 
 var actions = {
 	createTodo: function(todo){
-		console.log('todo created', todo);
 		Dispatcher.dispatch({
 			actionType: Constants.CREATE_TODO,
+			data: todo
+		});
+	},
+	deleteTodo: function(todo){
+		Dispatcher.dispatch({
+			actionType: Constants.DELETE_TODO,
 			data: todo
 		});
 	}

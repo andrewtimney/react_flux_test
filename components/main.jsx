@@ -3,12 +3,17 @@ var Actions = require("../../actions/actions");
 var TodoStore = require("../../stores/todo-store");
 
 var Todo = React.createClass({
+	handleClick(){
+		Actions.deleteTodo(this.props.todo);
+	},
 	render: function(){
-		return <div>
-				<h3>
-				{this.props.comment}
-				</h3>
-			   </div>
+		return <li className="list-group-item">
+				{this.props.todo}
+				<button className="btn btn-sm btn-default pull-right"
+					onClick={this.handleClick}>
+					X
+				</button>
+			   </li>;
 	}
 });
 
@@ -58,7 +63,7 @@ var Todos = React.createClass({
 			   <h3>Todo</h3>
 			   <ul className="list-group">
 			    {this.state.todos.map(function(todo){
-			   		return <li className="list-group-item">{todo}</li>;
+			   		return <Todo todo={todo} />;
 			    })}
 			   </ul>
 			   <Create />

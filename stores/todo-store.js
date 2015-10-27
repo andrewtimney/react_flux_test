@@ -31,6 +31,10 @@ Dispatcher.register(function(action){
 			_todos.push(action.data);
 			store.emitChange();
 			break;
+		case Constants.DELETE_TODO:
+			_todos.splice(_todos.indexOf(action.data), 1);
+			store.emitChange();
+			break;
 	}
 });
 
